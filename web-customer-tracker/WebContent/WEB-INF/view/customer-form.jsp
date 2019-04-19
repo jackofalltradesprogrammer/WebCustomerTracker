@@ -17,6 +17,8 @@
 		<div id="container">
 			<h3>Save Customer</h3>
 			<form:form action="saveCustomer" modelAttribute="customer" method="post">
+				<!-- need to associate this data with customer id & if this id exists we can tell spring that this customer exists and just update it-->
+				<form:hidden path="id"/>
 				<table>
 					<tbody>
 						<tr>
