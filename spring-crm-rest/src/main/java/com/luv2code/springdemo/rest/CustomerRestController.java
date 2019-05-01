@@ -14,20 +14,26 @@ import com.luv2code.springdemo.service.CustomerService;
 @RestController
 @RequestMapping("/api")
 public class CustomerRestController {
-	
+
 	// autowire the Customer Service
 	@Autowired
 	private CustomerService customerService;
-	
+
 	// add mapping for GET /customers
 	@GetMapping("/customers")
 	public List<Customer> getCustomers() {
 		return customerService.getCustomers();
 	}
-	
+
 	@GetMapping("/customers/{customerId}")
 	public Customer getCustomer(@PathVariable int customerId) {
-		return customerService.getCustomer(customerId);
+		Customer customer = customerService.getCustomer(customerId);
+
+		if (customer == null) {
+			throw new CustomerNotFoundException("Customer id not found - " + customerId);
+		}
+
+		return customer;
 	}
-	
+
 }
